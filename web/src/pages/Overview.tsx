@@ -103,7 +103,7 @@ export default function Overview() {
         <Card><div className="p-10 text-center text-slate-500">No decisions yet — run the simulator to send traffic through the engine.</div></Card>
       ) : (
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-          <Card title="Fraud detection vs. simulator ground truth" icon={<ShieldAlert size={16} className="text-violet-600" />} className="xl:col-span-2">
+          <Card title="Fraud detection vs. simulator ground truth" icon={<ShieldAlert size={16} className="text-violet-600" />} className="xl:col-span-2 min-w-0">
             <div className="overflow-x-auto">
               <table className="tbl">
                 <thead><tr><th>Scenario</th>{outcomesCols.map((o) => <th key={o} className="text-right">{OUTCOME_STYLE[o].label}</th>)}<th className="text-right">Caught</th><th>Caught mainly by</th></tr></thead>
@@ -159,8 +159,8 @@ export default function Overview() {
             </div>
           </Card>
 
-          <Card title="Latest decisions" className="xl:col-span-2" actions={<Link to="/claims" className="text-xs font-normal text-brand-700 hover:underline">All claims →</Link>}>
-            <table className="tbl">
+          <Card title="Latest decisions" className="xl:col-span-2 min-w-0" actions={<Link to="/claims" className="text-xs font-normal text-brand-700 hover:underline">All claims →</Link>}>
+            <div className="overflow-x-auto"><table className="tbl">
               <thead><tr><th>Time</th><th>Type</th><th>Subject</th><th className="text-right">Amount</th><th>Fraud score</th><th>Outcome</th><th>Why</th></tr></thead>
               <tbody>
                 {recent.data?.items.map((r) => (
@@ -169,13 +169,13 @@ export default function Overview() {
                     <td className="text-xs">{r.flow === "claim" ? "Claim" : "Prior auth"}</td>
                     <td className="mono">{r.subject_id} <ScenarioBadge scenario={r.injected} /></td>
                     <td className="text-right tabular-nums">{money(r.amount)}</td>
-                    <td>{r.flow === "claim" ? <ScoreBar score={r.fraud_score} /> : <span className="text-xs text-slate-400">{r.procedure}</span>}</td>
+                    <td>{r.flow === "claim" ? <ScoreBar score={r.fraud_score} /> : <span className="block max-w-[150px] truncate text-xs text-slate-400" title={r.procedure ?? ""}>{r.procedure}</span>}</td>
                     <td><OutcomeBadge outcome={r.outcome} /></td>
                     <td className="text-xs text-slate-500 max-w-[260px] truncate">{r.reasons[0]?.reason}</td>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </table></div>
           </Card>
         </div>
       )}

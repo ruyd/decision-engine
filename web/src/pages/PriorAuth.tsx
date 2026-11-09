@@ -57,7 +57,11 @@ export default function PriorAuth() {
             </div>
             <label className="block space-y-1"><div className="label">Procedure</div>
               <select className="input w-full" value={selected ? `${selected.kind}:${selected.code}` : ""} onChange={(e) => setCode(e.target.value)}>
-                {items.map((c) => <option key={c.kind + c.code} value={`${c.kind}:${c.code}`}>{c.kind === "drg" ? "DRG " : ""}{c.code} — {c.label} ({money(c.typical_cost)})</option>)}
+                {items.map((c) => {
+                  const code = c.kind === "drg" ? `DRG ${c.code}` : c.code;
+                  const name = c.label && c.label !== code && c.label !== c.code ? ` — ${c.label}` : "";
+                  return <option key={c.kind + c.code} value={`${c.kind}:${c.code}`}>{code}{name} ({money(c.typical_cost)})</option>;
+                })}
               </select>
               {selected && <div className="text-xs text-slate-500">Typical {money(selected.typical_cost)} · high-end {money(selected.high_cost)} · {selected.volume.toLocaleString()} in history</div>}
             </label>
@@ -70,7 +74,7 @@ export default function PriorAuth() {
           </div>
         </Card>
 
-        <div className="space-y-4">
+        <div className="space-y-4 min-w-0">
           {res && (
             <Card title={<span className="flex items-center gap-2">Decision <OutcomeBadge outcome={res.outcome} size="lg" /></span>}
               actions={<Link to={`/decisions/${res.id}`} className="text-xs font-normal text-brand-700 hover:underline">Full audit trail →</Link>}>
@@ -86,13 +90,12 @@ export default function PriorAuth() {
           )}
           <Card title="Recent requests">
             {!list.data ? <Loading /> : list.data.items.length === 0 ? <Empty>No requests yet.</Empty> : (
-              <table className="tbl">
-                <thead><tr><th>Time</th><th>Request</th><th>Member</th><th>Procedure</th><th className="text-right">Expected</th><th>Risk</th><th>Outcome</th><th>Queue</th></tr></thead>
+              <div className="overflow-x-auto"><table className="tbl">
+                <thead><tr><th>Time</th><th>Member</th><th>Procedure</th><th className="text-right">Expected</th><th>Risk</th><th>Outcome</th><th>Queue</th></tr></thead>
                 <tbody>
                   {list.data.items.map((r) => (
                     <tr key={r.id} className="row-link" onClick={() => nav(`/decisions/${r.id}`)}>
                       <td className="text-xs text-slate-500 tabular-nums">{time(r.created_at)}</td>
-                      <td className="mono">{r.subject_id}</td>
                       <td><MemberLink id={r.member_id} /></td>
                       <td className="text-xs max-w-[220px] truncate">{r.procedure}</td>
                       <td className="text-right tabular-nums">{money(r.amount)}</td>
@@ -102,7 +105,7 @@ export default function PriorAuth() {
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </table></div>
             )}
           </Card>
         </div>

@@ -5,6 +5,36 @@ Plan**: a rules engine that combines a fraud anomaly model and a cost-prediction
 SHAP explanations and a full audit trail for every decision. Plus a web app to demo it.
 Data: the shared SynPUF warehouse in `~/sources/medical-dw` (Postgres :55433, MLflow :5050).
 
+![Overview: KPIs, traffic simulator, and fraud detection measured against simulator ground truth](docs/screenshots/01-overview.png)
+
+## Screenshots
+
+**Claim decision** — every decision is explained: line prices vs. code norms, the anomaly score with
+SHAP contributions, which rules fired with the exact values they saw, and a reviewer Approve/Deny.
+
+![Claim decision detail with SHAP and rule trace](docs/screenshots/02-claim-decision.png)
+
+**Prior authorization** — decided instantly; the member's predicted next-year cost is explained in
+dollars (average member + contributions = prediction) and drives care-management routing.
+
+![Prior authorization with dollar SHAP explanation](docs/screenshots/03-prior-auth.png)
+
+**Rules editor + backtest** — rules are data in a sandboxed expression language. Loosening the price
+rule from 10× to 6× catches more fraud but doubles genuine claims sent to review, measured on stored
+decisions before anything is published.
+
+![Rules editor with backtest results](docs/screenshots/04-rules-backtest.png)
+
+**Member risk** — cost-model prediction with SHAP, chronic conditions, cost history and hospital stays.
+
+![Member risk detail](docs/screenshots/05-member.png)
+
+| Review queues | Models (from the MLflow registry) |
+|---|---|
+| ![Review queues](docs/screenshots/07-queues.png) | ![Model cards](docs/screenshots/06-models.png) |
+
+<sub>Screenshots: `node docs/capture_screenshots.mjs` (headless Chrome at 2×). All data is synthetic (CMS DE-SynPUF); the insurer is fictional.</sub>
+
 ## Run it
 
 ```bash

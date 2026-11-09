@@ -50,7 +50,7 @@ function RuleEditor({ rule, outcomes, stat, problems, onChange, onDelete }: {
       </div>
       {rule.description && <div className="ml-9 text-xs text-slate-500 mt-0.5">{rule.description}</div>}
       <div className="ml-9 mt-2 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-2">
-        <textarea rows={1} spellCheck={false} value={rule.condition} onChange={(e) => set({ condition: e.target.value })}
+        <textarea rows={Math.max(1, Math.ceil(rule.condition.length / 52))} spellCheck={false} value={rule.condition} onChange={(e) => set({ condition: e.target.value })}
           className={`mono w-full rounded-lg bg-slate-900 text-slate-100 px-3 py-2 outline-none resize-y focus:ring-2 ${problems.length ? "ring-2 ring-rose-400" : "focus:ring-brand-400"}`} />
         <div className="flex gap-2 items-start">
           <select className="input" value={rule.action.outcome} onChange={(e) => setA({ outcome: e.target.value })}>

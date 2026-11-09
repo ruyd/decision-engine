@@ -82,7 +82,7 @@ export function ScoreGauge({ score }: { score: number }) {
         <div className="absolute -top-3.5 h-4 w-0.5 bg-slate-900 rounded" style={{ left: `calc(${pos(score)}% - 1px)` }} />
       </div>
       <div className="relative h-3 text-[10px] text-slate-400 -mt-1">
-        {[0, 0.9, 0.98, 0.995, 1].map((t) => (
+        {[0, 0.9, 0.98, 0.995].map((t) => (
           <span key={t} className="absolute -translate-x-1/2 tabular-nums" style={{ left: `${pos(t)}%` }}>{+(t * 100).toFixed(1)}</span>
         ))}
       </div>

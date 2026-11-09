@@ -27,6 +27,7 @@ body { @apply bg-slate-50 text-slate-800 antialiased; font-feature-settings: "cv
 .input { @apply rounded-lg border border-slate-300 bg-white px-2.5 py-1.5 text-sm outline-none focus:border-brand-500 focus:ring-2 focus:ring-brand-100; }
 .tbl { @apply w-full text-sm; }
 .tbl th { @apply text-left font-medium text-[11px] uppercase tracking-wide text-slate-500 px-3 py-2 border-b border-slate-200 bg-slate-50/60; }
-.tbl td { @apply px-3 py-2 border-b border-slate-100 align-middle; }
+.tbl td { @apply px-3 py-2 border-b border-slate-100 align-middle whitespace-nowrap; }
+.tbl th { white-space: nowrap; }
 .tbl tr.row-link { @apply cursor-pointer hover:bg-brand-50/50; }
 .mono { @apply font-mono text-[12.5px]; }
