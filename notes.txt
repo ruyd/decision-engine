@@ -1,0 +1,8 @@
+Using publicly available medical claims data like: https://www.cms.gov/data-research/statistics-trends-and-reports/medicare-claims-synthetic-public-use-files/cms-2008-2010-data-entrepreneurs-synthetic-public-use-file-de-synpuf
+Want to create a long term cost estimator for medical conditions and insurance underwriting. It simulates the cost of a medical condition over 20 years based on lifestyle and possible combinations of medical conditions. It takes a profile: gender, age, weight, height and generates costs over time for typical conditions for age and gender. Do I need to train a model? 
+
+https://www.cms.gov/data-research/statistics-trends-and-reports/medicare-claims-synthetic-public-use-files/cms-2008-2010-data-entrepreneurs-synthetic-public-use-file-de-synpuf
+
+https://unidata.pro/blog/best-free-healthcare-ml-datasets/
+
+https://physionet.org/content/mimiciv/3.1/

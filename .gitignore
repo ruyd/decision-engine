@@ -1,0 +1,7 @@
+.DS_Store
+.venv/
+__pycache__/
+data/
+mlruns/
+node_modules/
+web/dist/
